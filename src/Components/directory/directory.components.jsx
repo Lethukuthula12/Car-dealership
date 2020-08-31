@@ -47,8 +47,8 @@ constructor(){
 
 render(){
     return (  <div className="directory-menu">
-    {this.state.section.map(({title, imageUrl, id, size})=>(
-        <Menu_items title ={title} key ={id} imageUrl= {imageUrl} size ={size}/>
+    {this.state.section.map(({id, ...otherSectionProps })=>(
+        <Menu_items key ={id} {...otherSectionProps} />
     ))}
     </div>)
 }
