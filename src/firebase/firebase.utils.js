@@ -1,8 +1,6 @@
 import firebase from "firebase/app"
 import "firebase/firestore";
 import "firebase/auth";
-import { userRef } from "react";
-
 
 const config = {
   apiKey: "AIzaSyChDaepiiebmo2cXmcj8lHqwpc_JAm27po",
