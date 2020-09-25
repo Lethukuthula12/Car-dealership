@@ -1,6 +1,7 @@
-import firebase from "firebase/app"
-import "firebase/firestore";
-import "firebase/auth";
+
+import  firebase from "firebase/app"  //we're pulling off a database utils library
+import "firebase/firestore"; //we only need few utils from the library so we pull firestore for a database
+import "firebase/auth"; // an auth for authorization
 
 const config = {
   apiKey: "AIzaSyChDaepiiebmo2cXmcj8lHqwpc_JAm27po",
@@ -13,43 +14,42 @@ const config = {
   measurementId: "G-RC97V9GT1Z",
 };
 
-export const createUserProfileDocument = async(userAuth, additionalData) => {
-  if(!userAuth) return;
+export const createUserProfileDocument = async(userAuth, additionalData /*otherdata that we might need from*/) => { // we create this function in order to take a user in authorization table to firebase store. actually storing our users as they loggin in. async because it's an api request. 
+
+  if(!userAuth) return; //if there's no userAuth, we just want to exit without doing anything
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
 
   if(!snapShot.exists){
-    const {displayName, email} = userAuth;
-    const createdAt
- = new Date();
+    // we want to check if we have a user existing our database, if not we create a new user
+    const { displayName, email } = userAuth; //distructuring the data that we need from the userAuth. displayname and email
+    const createdAt = new Date(); //we also want to check what time the user was created
 
- try{
-  await userRef.set({
-    displayName,
-    email,
-    createdAt,
-    ...additionalData,
-  });
+    try {
+      await userRef.set({
+        //creating a new user from the data we receive from logging with google. also passing the addition data we might need
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log("error in creating user", error.message);
+    }
+  }
 
- }catch(error){
-   console.log("error in creating user", error.message);
- }
-
+return userRef; 
 }
 
-return userRef;
-}
+firebase.initializeApp(config); // we're initializing the config we got from the firebase all
 
-firebase.initializeApp(config);
+export const auth = firebase.auth(); //step1
+export const firestore =firebase.firestore() //step 2;
 
-export const auth = firebase.auth();
-export const firestore =firebase.firestore();
+const provider = new firebase.auth.GoogleAuthProvider(); //this gives us an access to google provider outhethication
+provider.setCustomParameters({prompt: "select_account"});// this means that we always want to trigger a google popup when ever we use google auth provider for authethication and signin
+export const signInWithGoogle = ()=> auth.signInWithPopup(provider); //the signInwithGoogle takes google signin authethication because we have many signins e.g Twitter, facebook and forth
 
-const provider = new firebase.auth.GoogleAuthProvider();
-
-provider.setCustomParameters({prompt: "select_account"});
-export const signInWithGoogle = ()=> auth.signInWithPopup(provider);
-
-export default firebase;
+export default { firebase , signInWithGoogle };
