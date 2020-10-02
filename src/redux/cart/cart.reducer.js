@@ -3,7 +3,7 @@ import  CartActionTypes from "./cart.type";
 import { addItemToCart} from "./cart.utils"
 const INITIAL_STATE = {
   hidden: true,
-  cardItems: [] // we want to add the items that are added into the array
+  cartItems: [] // we want to add the items that are added into the array
 };
 
 const CartReducer = (state = INITIAL_STATE, action) => {
@@ -16,7 +16,7 @@ const CartReducer = (state = INITIAL_STATE, action) => {
       case CartActionTypes.ADD_ITEM:  //everytime when the action type is add_item, we going to return an object with a state as well as the spreading the carditems and also pass their payloads
         return {
           ...state,
-          cardItems: addItemToCart(state.cardItems, action.payload)
+          cartItems: addItemToCart(state.cartItems, action.payload)
         }
     default:
       return state;

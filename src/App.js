@@ -2,9 +2,15 @@ import React from 'react';
 import './App.css';
 import Homepage from "./Components/pages/homepage/Homepage.components";
 import {Switch, Route, Redirect} from "react-router-dom";
+import {selectCurrentUser } from "./redux/user/user.selector"
+import {createStructuredSelector} from "reselect"
+
 import ShopPage from "./Components/pages/shop/shop.component"
 import Header from "./Components/header/header.component";
 import SignInAndSignUpPage from "./Components/pages/sign-in-and-sign-up/sign-in-and-sign-up.components";
+import CheckOutPage from "./Components/pages/checkout/checkout.components"
+
+
 import {
   auth,
   createUserProfileDocument,
@@ -52,14 +58,16 @@ unsubscribeFromAuth = null; //we want to close our unsubscribtion to our databas
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/shop" component={ShopPage} />
+        <Route path="/checkout" component={CheckOutPage} />
         <Route exact  path="/signin" render={()=> this.props.currentUser ? (<Redirect to="/" /> ): (<SignInAndSignUpPage/>)} />
       </Switch>
     </div>
   );
+
   }
 }
-const mapStateToProps = ({user})=>({
-currentUser:  user.currentUser
+const mapStateToProps = createStructuredSelector({
+currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch =>({
