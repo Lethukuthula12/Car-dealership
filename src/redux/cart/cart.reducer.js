@@ -1,6 +1,6 @@
 import  CartActionTypes from "./cart.type";
 /* We want to make a dropdown hidden initially*/
-import { addItemToCart} from "./cart.utils"
+import { addItemToCart, removeItemFromCart} from "./cart.utils"
 const INITIAL_STATE = {
   hidden: true,
   cartItems: [] // we want to add the items that are added into the array
@@ -13,14 +13,24 @@ const CartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         hidden: !state.hidden /* this will set the hidden value to the opposite everytime on a rerender */,
       };
-      case CartActionTypes.ADD_ITEM:  //everytime when the action type is add_item, we going to return an object with a state as well as the spreading the carditems and also pass their payloads
-        return {
-          ...state,
-          cartItems: addItemToCart(state.cartItems, action.payload)
-        }
+    case CartActionTypes.ADD_ITEM: //everytime when the action type is add_item, we going to return an object with a state as well as the spreading the carditems and also pass their payloads
+      return {
+        ...state,
+        cartItems: addItemToCart(state.cartItems, action.payload),
+      };
+    case CartActionTypes.CLEAR_ITEM_FROM_CART: 
+    return {
+      ...state,
+      cartItems: state.cartItems.filter(cartItem => cartItem.id !== action.payload.id)
+    };
+    case CartActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: removeItemFromCart(state.cartItems, action.payload)
+      };
     default:
       return state;
-  }
+  };
 };
 
 export default CartReducer;
