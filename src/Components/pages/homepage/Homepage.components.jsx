@@ -1,11 +1,16 @@
 import React from "react";
 import Directory from "../../directory/directory.components"
+import ShowCase from "../../show-case/show-case.component";
+
 
 import "./homepage.styles.scss";
 
 function Homepage() {
   return (
-  <Directory />
+    <div>
+      <ShowCase/>
+      <Directory />
+    </div>
   );
 }
 

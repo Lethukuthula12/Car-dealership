@@ -3,6 +3,7 @@ import React from "react";
 import {Route} from "react-router-dom";
 import CollectionPage from "../collection/collection.component";
 import CollectionOverview from "../../collections-overview/collection-overview.component"
+import "./shop-page.styles.scss"
 
 const ShopPage = ({ match }) => {
   console.log(match);

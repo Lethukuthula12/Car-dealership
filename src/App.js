@@ -11,6 +11,7 @@ import SignInAndSignUpPage from "./Components/pages/sign-in-and-sign-up/sign-in-
 import CheckOutPage from "./Components/pages/checkout/checkout.components"
 
 
+
 import {
   auth,
   createUserProfileDocument,
@@ -59,7 +60,17 @@ unsubscribeFromAuth = null; //we want to close our unsubscribtion to our databas
         <Route exact path="/" component={Homepage} />
         <Route path="/shop" component={ShopPage} />
         <Route path="/checkout" component={CheckOutPage} />
-        <Route exact  path="/signin" render={()=> this.props.currentUser ? (<Redirect to="/" /> ): (<SignInAndSignUpPage/>)} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            this.props.currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <SignInAndSignUpPage />
+            )
+          }
+        />
       </Switch>
     </div>
   );

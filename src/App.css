@@ -1,13 +1,23 @@
 body{
     font-family: 'Open Sans Condensed';
-    padding: 20px 60px;
+    background-color: black;
+    height: 100%;
+    z-index: -10;
+    margin: 0;
+   
 }
+
+
 
 a {
     text-decoration: none;
-    color : black;
+    color : white;
 }
 
 *{
     box-sizing: border-box;
+}
+
+#root{
+    background: url("https://eskipaper.com/images/dark-background-8.jpg") no-repeat center center/cover;
 }
