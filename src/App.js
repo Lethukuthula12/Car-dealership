@@ -7,6 +7,7 @@ import {createStructuredSelector} from "reselect"
 
 import ShopPage from "./Components/pages/shop/shop.component"
 import Header from "./Components/header/header.component";
+import Contacts from "./Components/pages/contacts/contact.components"
 import SignInAndSignUpPage from "./Components/pages/sign-in-and-sign-up/sign-in-and-sign-up.components";
 import CheckOutPage from "./Components/pages/checkout/checkout.components"
 
@@ -18,6 +19,7 @@ import {
 } from "./firebase/firebase.utils"; // step 3 /step4 importing createUserProfileDocument
 import {connect} from "react-redux";
 import {setCurrentUser } from "./redux/user.action"
+
 
 
 
@@ -58,6 +60,7 @@ unsubscribeFromAuth = null; //we want to close our unsubscribtion to our databas
       <Header />
       <Switch>
         <Route exact path="/" component={Homepage} />
+        <Route path="/contact" component={Contacts}/>
         <Route path="/shop" component={ShopPage} />
         <Route path="/checkout" component={CheckOutPage} />
         <Route

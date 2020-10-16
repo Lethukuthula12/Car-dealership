@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux"; //connect is a high order component that let us connect to anything related to redux
 import { createStructuredSelector} from "reselect";
 
-import {ReactComponent as Logo} from "../../assets/crown.svg";
+import { ReactComponent as Logo } from "../../assets/Icon.svg";
 import {auth} from "../../firebase/firebase.utils"; //step 4
 import CardIcon from "../card-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
